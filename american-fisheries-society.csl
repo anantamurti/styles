@@ -71,34 +71,15 @@
     </choose>
   </macro>
   <macro name="publisher">
-    <choose>
-      <if type="report">
-        <group delimiter=", ">
-          <text variable="publisher"/>
-          <group delimiter=" ">
-            <text variable="genre"/>
-            <text variable="number"/>
-          </group>
-          <text variable="publisher-place"/>
-        </group>
-      </if>
-      <else-if type="thesis">
-        <group delimiter=", ">
-          <group delimiter=". ">
-            <text variable="genre"/>
-          </group>
-          <text variable="publisher"/>
-          <text variable="publisher-place"/>
-        </group>
-      </else-if>
-      <else>
-        <group delimiter=", ">
+    <group delimiter=", ">
+      <choose>
+        <if type="article-journal article-magazine" match="none">
           <text variable="genre"/>
           <text variable="publisher"/>
           <text variable="publisher-place"/>
-        </group>
-      </else>
-    </choose>
+        </if>
+      </choose>
+    </group>
   </macro>
   <macro name="issued">
     <choose>
@@ -161,8 +142,7 @@
       </if>
       <else-if type="bill book chapter graphic legal_case legislation motion_picture paper-conference report song" match="any">
         <group prefix=". " delimiter=" ">
-          <label variable="page" form="long" text-case="capitalize-first"/>
-          <text variable="page"/>
+          <text variable="page" suffix=" pp"/>
           <text macro="container-contributors"/>
           <text macro="secondary-contributors"/>
           <text variable="container-title"/>
@@ -176,12 +156,12 @@
       <text variable="locator" prefix=" "/>
     </group>
   </macro>
-  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" collapse="year" cite-group-delimiter=", ">
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" collapse="year">
     <sort>
       <key variable="issued"/>
       <key macro="author"/>
     </sort>
-    <layout prefix="(" suffix=")" delimiter="; ">
+    <layout prefix="(" suffix=")" delimiter=", ">
       <group delimiter=" ">
         <text macro="author-short"/>
         <text macro="issued-year"/>
